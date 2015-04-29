@@ -23,6 +23,10 @@ div.melon-summary .price {
     font-weight: bold;
 }
 
+.melon-cart {
+    height: 15px;
+}
+
 
 /* melon-detail-page */
 
