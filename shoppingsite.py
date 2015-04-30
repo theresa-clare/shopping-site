@@ -80,7 +80,23 @@ def add_to_cart(id):
         session['cart'] = [id]
 
     flash("Melon was added!")
-    return render_template("cart.html")
+    melons_purchased = session['cart']
+
+    # Create dictionary of id as the key, values: common name, count, total
+    # melon_dictionary = {
+    #   id: [common name, count, type_total],
+    #}
+    order_total = 0
+    melon_dictionary = {}
+    for melon_id in melons_purchased:
+        if melon_id in melon_dictionary.keys():
+            melon_dictionary[melon_id][1] += 1
+            melon_dictionary[melon_id][2] += model.Melon.get_by_id(melon_id).price
+        else:
+            melon_dictionary[melon_id] = [model.Melon.get_by_id(melon_id).common_name, 1, model.Melon.get_by_id(melon_id).price]
+        order_total += model.Melon.get_by_id(melon_id).price
+
+    return render_template("cart.html", order_total = order_total, melon_dictionary = melon_dictionary)
 
 
 @app.route("/login", methods=["GET"])
