@@ -84,16 +84,16 @@ def add_to_cart(id):
 
     # Create dictionary of id as the key, values: common name, count, total
     # melon_dictionary = {
-    #   id: [common name, count, type_total],
+    #   id: [common name, count, price, type_total],
     #}
     order_total = 0
     melon_dictionary = {}
     for melon_id in melons_purchased:
         if melon_id in melon_dictionary.keys():
             melon_dictionary[melon_id][1] += 1
-            melon_dictionary[melon_id][2] += model.Melon.get_by_id(melon_id).price
+            melon_dictionary[melon_id][3] += model.Melon.get_by_id(melon_id).price
         else:
-            melon_dictionary[melon_id] = [model.Melon.get_by_id(melon_id).common_name, 1, model.Melon.get_by_id(melon_id).price]
+            melon_dictionary[melon_id] = [model.Melon.get_by_id(melon_id).common_name, 1, model.Melon.get_by_id(melon_id).price, model.Melon.get_by_id(melon_id).price]
         order_total += model.Melon.get_by_id(melon_id).price
 
     return render_template("cart.html", order_total = order_total, melon_dictionary = melon_dictionary)
