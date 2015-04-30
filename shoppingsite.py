@@ -7,7 +7,7 @@ Authors: Joel Burton, Christian Fernandez, Meggie Mahnken.
 """
 
 
-from flask import Flask, render_template, redirect, flash
+from flask import Flask, render_template, redirect, flash, session, request
 import jinja2
 
 import model
@@ -74,10 +74,13 @@ def add_to_cart(id):
     page and display a confirmation message: 'Successfully added to cart'.
     """
 
-    # TODO: Finish shopping cart functionality
-    #   - use session variables to hold cart list
+    if "cart" in session.keys():
+        session['cart'].append(id)
+    else:
+        session['cart'] = [id]
 
-    return "Oops! This needs to be implemented!"
+    flash("Melon was added!")
+    return render_template("cart.html")
 
 
 @app.route("/login", methods=["GET"])
@@ -94,10 +97,10 @@ def process_login():
     Find the user's login credentials located in the 'request.form'
     dictionary, look up the user, and store them in the session.
     """
+    session['username'] = request.form.get("email")
+    session['password'] = request.form.get("password")
 
-    # TODO: Need to implement this!
-
-    return "Oops! This needs to be implemented"
+    return redirect("/melons")
 
 
 @app.route("/checkout")
