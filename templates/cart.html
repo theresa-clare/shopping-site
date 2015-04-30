@@ -17,20 +17,14 @@
             <tr>
                 <td>{{ melon_dictionary[melon_id][0] }}</td>
                 <td>{{ melon_dictionary[melon_id][1] }}</td>
-                <td>{{ melon_dictionary[melon_id][2] }}</td>
-                <td>{{ melon_dictionary[melon_id][3] }}</td>
+                <td>{{ "$%.2f"|format(melon_dictionary[melon_id][2]) }}</td>
+                <td>{{ "$%.2f"|format(melon_dictionary[melon_id][3]) }}</td>
             </tr>
         {% endfor %}
-<!--         <tr>
-            <td>Ancient Watermelon</td>
-            <td>5</td>
-            <td>$3.00</td>
-            <td>$15.00</td>
-        </tr> -->
         </tbody>
     </table>
 
-    <h3>Total: {{order_total}}</h3>
+    <h3>Total: {{"$%.2f"|format(order_total)}}</h3>
 
     <a href="/checkout" class="btn btn-large btn-primary">Check Out</a>
 
